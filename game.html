@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <title>Game</title>
+        <link rel="stylesheet" href="game.css">
+    </head>
+    <body>
+
+        <div>
+
+            Eggs Broken: <span id='EB'></span><br>
+            Eggs Collected: <span id="EC"></span><br>
+            <canvas id="Canvas" width="300" height="400">
+    
+    
+            </canvas>
+
+        </div>
+        
+        <button onclick = "i = setInterval(left, 50);">Left</button>
+        <button onclick = "u = setInterval(right, 50);"class="ri">Right</button><br>
+        
+        
+        <script>
+            let canvas = document.getElementById("Canvas");
+            let ctx = canvas.getContext('2d')
+            let WIDTH = canvas.width
+            let HEIGHT = canvas.height
+            
+            let posX = 0
+            let posY = HEIGHT-20;
+            
+            var sc = 0
+            
+            var strk = 0;
+            var i;
+            var u;
+            
+            setInterval(function()
+            {
+                ctx.fillStyle = 'black'
+                ctx.fillRect(posX,posY,20,20)
+                EB.innerHTML = sc   /* inner  html ke liye use krte hai*/
+                EC.innerHTML = strk
+
+            },5)           
+            function left(){
+                posX-=2
+            }
+            function right(){
+                posX += 2
+            }
+            
+            
+            var aPosX = 10 /* initial location of ball */
+            var aPosY = 0  /* initial ball location  w.r. t Y axis*/
+            
+            
+            setInterval(function(){
+                ctx.clearRect(0,0,WIDTH,HEIGHT)
+                ctx.beginPath()
+                ctx.arc(aPosX,aPosY,10,0,2*Math.PI,false)
+                ctx.fillStyle = '#F1BF71'
+                ctx.fill()
+                ctx.fillStyle = 'black'  /* basket for collection*/
+                ctx.fillRect(posX,posY,30,20)
+                aPosY+= 5
+                  if (Math.abs(aPosX - posX) <= 20 && Math.abs(aPosY - posY) <= 5)
+                {
+                    var aPoX = Math.random() * WIDTH
+                    while(aPosX <= 20)
+                    {
+                        aPosX++
+                    }
+
+                    /*it is a function returns the absolute value of a number*/
+
+            aPosX = Math.round(aPoX) /* it is a function that returns rounded value*/
+            while(aPosX % 20 != 0)
+            {
+                aPosX--
+            }
+            if (aPoX >= WIDTH)
+            {
+                aPosX - 20
+            }
+                    aPosY = 0
+                    sc += 1
+                    strk++
+            }
+            
+            
+            if(aPosY >= HEIGHT-20)
+                {
+                    var aPoX = Math.random() * WIDTH
+            aPosX = Math.round(aPoX)
+            while(aPosX % 20 != 0)
+            {
+                aPosX--
+            }
+            if (aPoX >= WIDTH){
+                aPosX - 20
+            }
+                    aPosY = 0
+                    sc -= 1
+                    strk = 0
+                }
+            },50)
+        </script>
+    </body>
+</html>
